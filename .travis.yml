@@ -1,0 +1,9 @@
+language: go
+
+services:
+  - docker
+
+before_install:
+  - go build -o hello ./...
+  - docker build --compress --force-rm --rm  --no-cache --tag ${TRAVIS_REPO_SLUG}:${TRAVIS_COMMIT} .
+  - docker run ${TRAVIS_REPO_SLUG}:${TRAVIS_COMMIT}
