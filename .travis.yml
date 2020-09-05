@@ -24,15 +24,15 @@ script:
   - $GOPATH/bin/goveralls -service=travis-ci
 deploy:
   - provider: script
-    script: deploy_production.sh
+    script: bash deploy_production.sh
     on:
       branch: master
   - provider: script
-    script: deploy_staging.sh
+    script: bash deploy_staging.sh
     on:
       all_branches: true
       condition: $TRAVIS_BRANCH != "master"
   - provider: script
-    script: deploy_staging.sh
+    script: bash deploy_staging.sh
     on:
       branch: first-implementation
