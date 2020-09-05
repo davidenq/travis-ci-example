@@ -23,4 +23,4 @@ before_install:
 - gcloud run deploy --image ${CONTAINER_TAG}:${TRAVIS_COMMIT} --region us-east1 --platform managed --allow-unauthenticated
 script:
   - $GOPATH/bin/goveralls -service=travis-ci
-  - gcloud run deploy --image ${CONTAINER_TAG}:${TRAVIS_COMMIT} --region us-east1 --platform managed --allow-unauthenticated
+  - gcloud run deploy server-staging --image ${CONTAINER_TAG}:${TRAVIS_COMMIT} --region us-east1 --platform managed --allow-unauthenticated
