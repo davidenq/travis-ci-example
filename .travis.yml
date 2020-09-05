@@ -29,7 +29,9 @@ deploy:
     on:
       branch: master
   - provider: script
-    script: deploy_staging.sh
+    script: gcloud run deploy ${TRAVIS_BUILD_ID}-staging --image ${CONTAINER_TAG}:${TRAVIS_COMMIT} --region us-east1 --platform managed --allow-unauthenticated
     on:
       all_branches: true
       condition: $TRAVIS_BRANCH != "master"
+after_success:
+  - curl $(gcloud run services describe ${TRAVIS_BUILD_ID}-staging --platform managed --region us-east1 --format 'value(status.url)')
