@@ -30,4 +30,5 @@ deploy:
   - provider: script
     script: deploy_staging.sh
     on:
-      branch: /^[a-zA-Z]\/.*$/
+      all_branches: true
+      condition: $TRAVIS_BRANCH != "master"
