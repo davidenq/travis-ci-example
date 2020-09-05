@@ -17,4 +17,5 @@ before_install:
 - source $HOME/google-cloud-sdk/path.bash.inc
 - gcloud auth activate-service-account ${GOOGLE_ACCOUNT} --key-file=./devops-flow-testing.json
 - gcloud auth configure-docker
+- docker login -u _json_key --password-stdin https://gcr.io < devops-flow-testing.json
 - docker push ${CONTAINER_TAG}:${TRAVIS_COMMIT}
