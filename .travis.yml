@@ -25,7 +25,7 @@ script:
   - gcloud config set project ${PROJECT_ID}
 deploy:
   - provider: script
-    script: deploy_production.sh
+    script: gcloud run deploy travis-ci-example --image ${CONTAINER_TAG}:${TRAVIS_COMMIT} --region us-east1 --platform managed --allow-unauthenticated
     on:
       branch: master
   - provider: script
