@@ -29,7 +29,7 @@ deploy:
     on:
       branch: master
   - provider: script
-    script: gcloud run deploy ${TRAVIS_BUILD_ID}-staging --image ${CONTAINER_TAG}:${TRAVIS_COMMIT} --region us-east1 --platform managed --allow-unauthenticated
+    script: gcloud run deploy staging-${TRAVIS_BUILD_ID} --image ${CONTAINER_TAG}:${TRAVIS_COMMIT} --region us-east1 --platform managed --allow-unauthenticated
     on:
       all_branches: true
       condition: $TRAVIS_BRANCH != "master"
