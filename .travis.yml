@@ -22,3 +22,5 @@ before_install:
 - docker push ${CONTAINER_TAG}:${TRAVIS_COMMIT}
 script:
   - $GOPATH/bin/goveralls -service=travis-ci
+deploy:
+  - gcloud run deploy ${TRAVIS_BUILD_ID} --image ${CONTAINER_TAG}:${TRAVIS_COMMIT} --region us-east1 --platform managed --allow-unauthenticated

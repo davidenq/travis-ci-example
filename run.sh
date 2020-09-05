@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run hello:latest
+docker run -e PORT=8080 -p 8080:8080 hello:latest
