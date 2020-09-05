@@ -22,17 +22,4 @@ before_install:
 - docker push ${CONTAINER_TAG}:${TRAVIS_COMMIT}
 script:
   - $GOPATH/bin/goveralls -service=travis-ci
-deploy:
-  - provider: script
-    script: bash deploy_production.sh
-    on:
-      branch: master
-  - provider: script
-    script: bash deploy_staging.sh
-    on:
-      all_branches: true
-      condition: $TRAVIS_BRANCH != "master"
-  - provider: script
-    script: bash deploy_staging.sh
-    on:
-      branch: first-implementation
+  - gcloud run deploy ${TRAVIS_BUILD_ID}-staging --image ${CONTAINER_TAG}:${TRAVIS_COMMIT} --region us-east1 --platform managed --allow-unauthenticated
