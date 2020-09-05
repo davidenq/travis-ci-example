@@ -33,5 +33,5 @@ deploy:
     on:
       all_branches: true
       condition: $TRAVIS_BRANCH != "master"
-after_success:
-  - curl $(gcloud run services describe ${TRAVIS_BUILD_ID}-staging --platform managed --region us-east1 --format 'value(status.url)')
+after_deploy:
+  - response=$(curl -s $(gcloud run services describe staging-724391696  --platform managed --region us-east1 --format 'value(status.url)')) && if [[ "$response" == "home" ]]; then exit 0 || exit 1; fi
