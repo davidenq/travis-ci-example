@@ -11,10 +11,10 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_3a977ec39d2c_key -iv $encrypted_3a977ec39d2c_iv
   -in devops-flow-testing.json.enc -out devops-flow-testing.json -d
 - go test --cover ./...
-- docker build --compress --force-rm --rm  --no-cache --tag ${TRAVIS_REPO_SLUG}:${TRAVIS_COMMIT}
-  .
+- docker build --compress --force-rm --rm  --no-cache --tag ${TRAVIS_REPO_SLUG}:${TRAVIS_COMMIT} .
 - if [ ! -d $HOME/google-cloud-sdk/bin ]; then rm -rf $HOME/google-cloud-sdk; curl
   https://sdk.cloud.google.com | bash > /dev/null; fi
 - source $HOME/google-cloud-sdk/path.bash.inc
 - gcloud auth activate-service-account ${GOOGLE_ACCOUNT} --key-file=./devops-flow-testing.json
 - gcloud auth configure-docker
+- docker push ${TRAVIS_REPO_SLUG}:${TRAVIS_COMMIT}
