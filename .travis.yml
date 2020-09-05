@@ -20,7 +20,16 @@ before_install:
 - gcloud auth configure-docker
 - docker login -u _json_key --password-stdin https://gcr.io < devops-flow-testing.json
 - docker push ${CONTAINER_TAG}:${TRAVIS_COMMIT}
-- gcloud config set project ${PROJECT_ID}
 script:
   - $GOPATH/bin/goveralls -service=travis-ci
-  - gcloud run deploy server-staging --image ${CONTAINER_TAG}:${TRAVIS_COMMIT} --region us-east1 --platform managed --allow-unauthenticated
+  - gcloud config set project ${PROJECT_ID}
+deploy:
+  - provider: script
+    script: deploy_production.sh
+    on:
+      branch: master
+  - provider: script
+    script: deploy_staging.sh
+    on:
+      all_branches: true
+      condition: $TRAVIS_BRANCH != "master"
